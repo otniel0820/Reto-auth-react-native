@@ -10,7 +10,7 @@ import {useColorScheme} from 'react-native';
 
 export default function AuthUserApp() {
   const colorScheme = useColorScheme();
-  const theme = colorScheme === 'dark' ? eva.dark : eva.light;
+  const theme = colorScheme === 'light' ? eva.dark : eva.light;
   return (
     <>
     <IconRegistry icons={EvaIconsPack} />

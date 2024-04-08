@@ -1,10 +1,63 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import React from 'react';
+import {Button, Input, Layout, Text} from '@ui-kitten/components';
+import {ScrollView} from 'react-native-gesture-handler';
+import {useWindowDimensions} from 'react-native';
+import CustomIcon from '../../components/ui/CustomIcon';
 
 export default function LoginScreen() {
+  const {height} = useWindowDimensions();
+
   return (
-    <View>
-      <Text>LoginScreen</Text>
-    </View>
-  )
+    <Layout style={{flex: 1}}>
+      <ScrollView style={{marginHorizontal: 40}}>
+        <Layout style={{paddingTop: height * 0.35}}>
+          <Text category="h1">Ingresar</Text>
+          <Text category="p2">Por favor ingresae para continuar</Text>
+        </Layout>
+        <Layout style={{marginTop: 20}}>
+          <Input
+            placeholder="Correo electronico"
+            keyboardType="email-address"
+            autoCapitalize="none"
+            accessoryLeft={<CustomIcon name='email-outline'/>}
+            style={{marginBottom: 10}}
+          />
+          <Input
+            placeholder="Contraseña"
+            secureTextEntry
+            autoCapitalize="none"
+            accessoryLeft={<CustomIcon name='lock-outline'/>}
+            style={{marginBottom: 10}}
+          />
+        </Layout>
+
+        {/* Espacio */}
+        <Layout style={{height: 20}} />
+
+        {/* Boton */}
+        <Layout>
+          <Button 
+          onPress={() => {}}
+          accessoryRight={<CustomIcon name='arrow-forward-outline'/>}
+          >Ingresar</Button>
+        </Layout>
+
+        {/* Informacioc para crear cuenta */}
+        <Layout style={{height: 50}} />
+
+        <Layout style={{
+          alignItems: 'flex-end',
+          flexDirection: 'row',
+          justifyContent: 'center'
+        }}>
+          <Text>¿No tienes cuenta?</Text>
+          <Text 
+          status='primary' 
+          category='s1'
+          onPress={()=>{}}
+          >{' '}Crea una aqui</Text>
+        </Layout>
+      </ScrollView>
+    </Layout>
+  );
 }
