@@ -3,10 +3,18 @@ import {Button, Input, Layout, Text} from '@ui-kitten/components';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useWindowDimensions} from 'react-native';
 import CustomIcon from '../../components/ui/CustomIcon';
+import { StackScreenProps } from '@react-navigation/stack';
+import { RootStackParams } from '../../navigation/StackNavigation';
+import { API_URL, STAGE } from '@env';
 
-export default function LoginScreen() {
+interface Props extends StackScreenProps<RootStackParams, 'LoginScreen'>{
+
+}
+
+export default function LoginScreen({navigation}: Props) {
   const {height} = useWindowDimensions();
-
+ 
+ 
   return (
     <Layout style={{flex: 1}}>
       <ScrollView style={{marginHorizontal: 40}}>
@@ -54,7 +62,7 @@ export default function LoginScreen() {
           <Text 
           status='primary' 
           category='s1'
-          onPress={()=>{}}
+          onPress={()=>navigation.navigate('RegisterScreen')}
           >{' '}Crea una aqui</Text>
         </Layout>
       </ScrollView>
