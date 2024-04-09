@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {Button, Input, Layout, Text} from '@ui-kitten/components';
+import {Button, Input, Layout, Popover, Text} from '@ui-kitten/components';
 import {ScrollView} from 'react-native-gesture-handler';
 import {Alert, useWindowDimensions} from 'react-native';
 import CustomIcon from '../../components/ui/CustomIcon';
@@ -14,6 +14,7 @@ interface Props extends StackScreenProps<RootStackParams, 'RegisterScreen'>{
 export default function LoginScreen({navigation}: Props) {
 
   const {register} = useAuthStore()
+  const [isVisible, setIsVisible] = useState(false)
   const [form, setForm] = useState({
     email: '',
     password: '',
@@ -29,9 +30,16 @@ export default function LoginScreen({navigation}: Props) {
     }
     setIsPosting(true)
     const wasSuccesful = await register(form.email, form.password, form.fullName);
-    navigation.navigate('LoginScreen');
     setIsPosting(false)
-    if (wasSuccesful) return
+    if (wasSuccesful) {
+      
+      setIsVisible(true)
+      setTimeout(() => {
+        navigation.navigate('LoginScreen');
+        
+      }, 2000);
+      return
+    }
 
     Alert.alert('Error', 'Debe introducir correo o contraseña valida')
   }
@@ -39,6 +47,14 @@ export default function LoginScreen({navigation}: Props) {
   return (
     <Layout style={{flex: 1}}>
       <ScrollView style={{marginHorizontal: 40}}>
+      <Popover
+        style={{backgroundColor: 'rgba(0, 255, 0, 0.5)', padding: 16, marginTop: 10}}
+        anchor={()=> <Layout/>}
+        visible={isVisible}
+        onBackdropPress={()=>setIsVisible(false)}
+        >
+          <Text style={{color: 'white', fontSize: 20}}>Usuario creado exitosamente</Text>
+        </Popover>
         <Layout style={{paddingTop: height * 0.30}}>
           <Text category="h1">Crear Cuenta</Text>
           <Text category="p2">Por favor crea una cuenta para continuar</Text>
@@ -101,6 +117,7 @@ export default function LoginScreen({navigation}: Props) {
           onPress={()=>navigation.goBack()}
           >{' '}Ingresar</Text>
         </Layout>
+        
       </ScrollView>
     </Layout>
   );
