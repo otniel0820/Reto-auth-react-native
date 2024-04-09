@@ -12,6 +12,8 @@ import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
 import {StackNavigation} from './presentation/navigation/StackNavigation';
 import {useColorScheme} from 'react-native';
+import { AuthProvider } from './presentation/providers/AuthProvider';
+
 
 export default function AuthUserApp() {
   const colorScheme = useColorScheme();
@@ -36,7 +38,9 @@ export default function AuthUserApp() {
               notification: theme['color-primary-500'],
             },
           }}>
-          <StackNavigation />
+          <AuthProvider>
+            <StackNavigation />
+          </AuthProvider>
         </NavigationContainer>
       </ApplicationProvider>
     </>

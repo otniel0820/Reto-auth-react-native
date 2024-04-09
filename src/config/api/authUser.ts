@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {API_URL_ANDROID, API_URL_IOS, STAGE, API_URL as PROD_URL} from '@env';
 import {Platform} from 'react-native';
+import { StorageAdapter } from '../adapters/asyncStorage';
 
 export const API_URL =
   (STAGE === 'prod')
@@ -17,4 +18,18 @@ const authUser = axios.create({
 });
 
 
-//Todo: Interceptors
+
+//Interceptor
+
+authUser.interceptors.request.use(
+  async(config) => {
+  const token = StorageAdapter.getItem('token');
+  if (token) {
+    config.headers['Authorization'] = `Bearer ${token}`;
+  }
+  return config
+});
+
+export {
+    authUser
+}
